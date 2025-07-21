@@ -35,7 +35,7 @@ Me veo como una profesional que no solo crea contenido, sino que diseña sistema
 
 ### Actividad 3:
 - **Original:** http://www.generative-gestaltung.de/2/sketches/?01_P/P_2_1_2_03
--**Modificado:** https://editor.p5js.org/misisopi/sketches/4Rx40yU4H
+- **Modificado:** https://editor.p5js.org/misisopi/sketches/4Rx40yU4H
 
 #### 1. Analiza cómo funciona
 Genera una rejilla de rectángulos donde el tamaño cambia dinámicamente dependiendo de la distancia entre el mouse y cada rectángulo. Cuanto más lejos está el mouse de una celda, más grande es el rectángulo.
