@@ -30,3 +30,60 @@ Creo que como ingeniera, me gustaría  conectar a las personas de forma emociona
 
 #### 3. Nosotros estamos definiendo en TIEMPO REAL una nueva forma de expresión, una nueva forma de interactuar de manera colectiva. Estamos diseñando nuevas maneras de contar historias e interactuar con ellas. ¿Cómo te ves profesionalmente en este escenario?
 Me veo como una profesional que no solo crea contenido, sino que diseña sistemas vivos de interacción, donde las historias se construyen junto con quienes las experimentan y creo que lo que más me emociona es explorar nuevas formas de emocionar y generar impacto en los usuarios.
+
+---
+
+### Actividad 3:
+- **Original:** http://www.generative-gestaltung.de/2/sketches/?01_P/P_2_1_2_03
+-**Modificado:** https://editor.p5js.org/misisopi/sketches/4Rx40yU4H
+
+#### 1. Analiza cómo funciona
+Genera una rejilla de rectángulos donde el tamaño cambia dinámicamente dependiendo de la distancia entre el mouse y cada rectángulo. Cuanto más lejos está el mouse de una celda, más grande es el rectángulo.
+
+#### 2. Identifica un parámetro. Usando el mouse modifica de manera interactiva ese parámetro.
+Realice dos cambios al código, el primero es:
+
+```js
+var sw = map(mouseY, 0, height, 1, 10);
+strokeWeight(sw);
+```
+Al mover el mouse de arriba a abajo, los bordes de los rectángulos se ven más finos o más gruesos, según la posición vertical del cursor. Esto me ayudo a hacerlo chatgpt, ya que no sabia como modificar el `StrokeWeight()`. 
+
+El segundo es:
+
+```js
+ellipse(0, 0, diameter, diameter);
+```
+Que cambia los rectangulos por circulos.
+
+#### 3. Cómo crees que esto podría servirte para el proyecto del curso
+Este tipo de experiencia interactiva tan visual podría servirme para reflejar estados emocionales en el ambiente, o incluso para crear fondos que respondan al usuario de forma sutil o exagerada. 
+
+---
+
+### Actividad 4:
+
+#### Transformaciones
+
+| Función | Descripción | Enlace |
+|--------|-------------|--------|
+| [`translate()`](https://p5js.org/reference/#/p5/translate) | Cambia el origen de coordenadas. Usado para rotar desde el centro de la forma. | [ Enlace](https://p5js.org/reference/#/p5/translate) |
+| [`rotate()`](https://p5js.org/reference/#/p5/rotate) | Rota el sistema de coordenadas. | [ Enlace](https://p5js.org/reference/#/p5/rotate) |
+| [`push()`](https://p5js.org/reference/#/p5/push) | Guarda el estado de transformación y estilo. | [ Enlace](https://p5js.org/reference/#/p5/push) |
+| [`pop()`](https://p5js.org/reference/#/p5/pop) | Restaura el estado guardado por `push()`. | [ Enlace](https://p5js.org/reference/#/p5/pop) |
+
+#### Interacción
+
+| Función | Descripción | Enlace |
+|--------|-------------|--------|
+| [`mousePressed()`](https://p5js.org/reference/#/p5/mousePressed) | Detecta clics del mouse para agregar nuevas formas. | [ Enlace](https://p5js.org/reference/#/p5/mousePressed) |
+| [`mouseMoved()`](https://p5js.org/reference/#/p5/mouseMoved) | Detecta cuando se mueve el mouse para alterar el comportamiento. | [ Enlace](https://p5js.org/reference/#/p5/mouseMoved) |
+
+Chatgpt me ayudo en 2 partes clave aquí:
+1. Encontrar la referencia de `push()` y `pop()` ya que lo había visto en el ejercicio anterior y quería saber que hacían exactamente.
+2. Hacer las tablas resumiendo la referencia que use.
+
+- **Resultado final:** https://editor.p5js.org/misisopi/sketches/10UkqTM9x
+---
+
+
