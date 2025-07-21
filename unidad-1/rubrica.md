@@ -1,6 +1,10 @@
-# Unidad 1
+# Unidad 1 ✅ Rúbrica
 
-## ✅ Rúbrica
+**Puntuación Final Set-Seek:** `[  ]` / 20  
+**Puntuación Final Apply:** `[  ]` / 5  
+**Nota Final:** `[  ]`  
+
+## Fase set seek
 
 Escala de desempeño (basada en evidencia verificable):
 
@@ -10,8 +14,6 @@ Escala de desempeño (basada en evidencia verificable):
 2 - En desarrollo: se aborda el requisito de forma incompleta, con errores importantes o sin seguir las instrucciones clave.  
 1 - Inicial: se realiza un intento mínimo, pero es extremadamente deficiente, no corresponde a lo solicitado o es incomprensible.  
 0 - No realizado: no se presenta evidencia alguna para el criterio. La sección correspondiente en la bitácora está en blanco o no se entrega.  
-
-### Fase set seek
 
 ### **1. Definición de Conceptos Clave (Actividad 01)**
 > *Evalúa la respuesta a: ¿Qué es diseño/arte generativo? y ¿Cuál es su diferencia con el tradicional?*
@@ -57,6 +59,25 @@ Escala de desempeño (basada en evidencia verificable):
 
 **Calificación Obtenida:** `[  ]` / 5
 
-**Puntuación Final Set-Seek:** `[  ]` / 20
 
-### Fase apply
+## Fase apply
+
+### Aplicación del Método Deconstrucción/Reconstrucción
+
+Evalúa la respuesta a estas preguntas y solicitudes: `Reporta las siete etapas del método. Proporciona el enlace al ejemplo original y a tu versión reconstruida. Incluye el código fuente, la explicación de qué hiciste y por qué, y las capturas de pantalla de las fases EXPLORE y TINKER.`
+
+> **5 (Completo y Preciso):** Se entregan en la bitácora la totalidad de los seis elementos solicitados: el reporte de las siete etapas, los dos enlaces (original y reconstrucción), el código fuente, la explicación del proceso y las dos capturas de pantalla (EXPLORE y TINKER). Todos los elementos son correctos y funcionales.
+>
+> **4 (Logrado):** Se entregan la mayoría de los elementos, pero se presenta una única omisión o error menor fácilmente identificable. Por ejemplo: falta uno de los dos enlaces, falta una de las dos capturas de pantalla, el código no está incluido o falta la explicación.
+>
+> **3 (Suficiente):** Se entregan de forma parcial los elementos solicitados, presentando dos o tres omisiones. Por ejemplo, se reportan las etapas y se entregan los enlaces, pero no se incluye el código, la explicación ni las capturas.
+>
+> **2 (En Desarrollo):** La entrega es incompleta y solo presenta uno o dos de los seis elementos requeridos. Por ejemplo, solo se entrega el enlace a la versión reconstruida y el código fuente.
+>
+> **1 (Inicial):** Se realiza un intento mínimo que no sigue las instrucciones. Por ejemplo, se escribe un texto breve sobre la actividad pero sin entregar ninguno de los elementos estructurados solicitados.
+>
+> **0 (No Realizado):** No se presenta evidencia alguna para el criterio. La sección correspondiente en la bitácora está en blanco o no se entrega.
+
+**Calificación Obtenida:** `[  ]` / 5
+
+
