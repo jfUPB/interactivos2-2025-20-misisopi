@@ -24,7 +24,7 @@ Todos son algoritmos interactivos los cuales tienen reacciones de acuerdo a lo q
 
 #### 5. ¿Qué papel juega la aleatoriedad en los sketches básicos que creaste en la Actividad 04?
  la aleatoriedad juega un papel fundamental para lograr que cada forma generada sea única. Cada forma se genera con distinto tamaño y distinta forma, además del tipo de figura, el color y el tamaño son aleatorios.
-
+ 
 ---
 
 ### Parte 2:
@@ -40,3 +40,11 @@ Ahora veo el diseño generativo como una herramienta creativa para construir sis
 #### 4. ¿Qué estrategia de aprendizaje de esta unidad (ver videos, discutir en grupo, analizar referentes, deconstruir código) te ha funcionado mejor hasta ahora?
 
 Ver videos o discutir en grupo también aporta, pero lo que realmente consolida mi aprendizaje es tocar el código y ver qué pasa. Creo que reconstruir el código y jugar con él hace que me sea mucho más facil entender lo que estoy haciendo.
+
+## Actividad 7:
+
+1. Stella Lucía Pérez Contreras.
+2. https://github.com/jfUPB/interactivos2-2025-20-stellarkind/blob/unidad1/apply/unidad-1/apply.md
+3. Su código me pareció interesante, lo unico a poner en la mesa sería ser más conciente del uso de los textos, aunque esto no lo habíamos visto.
+4.  Me pareció interesante la reconstrucción que hizo Stella, a pesar de ser simple es divertida, el ejercicio que utilizó era complicado, sin embargo supo organizar sus ideas y generar un nuevo espacio referenciando al anterior. Su programa estaba muy organizado y tiene mucho potencial.
+
