@@ -42,6 +42,8 @@ También experimenté cambiando randomSeed con mouseY, de modo que cada posició
 ```js
 randomSeed(int(map(mouseY, 0, height, 0, 100)));
 ```
+--- 
+
 #### ¿Cómo funcionaria para el proyexto de curso?
 Este sistema es perfecto como visualización base de múltiples inputs del usuario o del entorno:
 - Cada celda puede representar una palabr o emoción del usuario.
@@ -51,6 +53,8 @@ Este sistema es perfecto como visualización base de múltiples inputs del usuar
 ### Ejemplos:
 - Experiencia de referencia: http://www.generative-gestaltung.de/2/sketches/?01_P/P_2_0_01
 - Ejemplo realizado: https://editor.p5js.org/misisopi/sketches/5yG2gVANG
+
+---
 
 ### Actividad 4:
 #### Enlace al ejemplo base:
