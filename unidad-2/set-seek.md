@@ -27,6 +27,8 @@ Le veo un potencial enorme como herramienta emocional, social y narrativa. Las e
 #### 3. Estamos definiendo en TIEMPO REAL una nueva forma de expresión e interacción colectiva. ¿Cómo te ves profesionalmente en este escenario?
 Me veo como alguien que puede diseñar sistemas interactivos que provoquen emociones reales y transformaciones simbólicas. Más que crear juegos o interfaces, quiero crear experiencias: espacios donde arte y narrativa converjan. Me veo como una directora de una orquesta, que deje a los demás fluir dentro del espacio creado pero que tenga el control de la experiencia en sí, es decir, un coreografo para los demás.
 
+--- 
+
 ### Actividad 3:
 #### 1. ¿Cómo funciona?
 Este sistema genera una cuadrícula de formas (por defecto elipses) distribuidas en filas y columnas. Cada celda del grid contiene una figura que puede variar en tamaño, rotación y tipo dependiendo de parámetros definidos en el código. La base es un orden rígido.
@@ -42,7 +44,6 @@ También experimenté cambiando randomSeed con mouseY, de modo que cada posició
 ```js
 randomSeed(int(map(mouseY, 0, height, 0, 100)));
 ```
---- 
 
 #### ¿Cómo funcionaria para el proyexto de curso?
 Este sistema es perfecto como visualización base de múltiples inputs del usuario o del entorno:
