@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>cliented1 (Desktop)</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin:0; font-family: system-ui, Segoe UI, Roboto, Arial; background:#0b0b0b; color:#eaeaea; }
+    main { max-width:900px; margin:24px auto; padding:0 16px; }
+    .row { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start; }
+    .card { flex:1 1 280px; background:#141414; border:1px solid #282828; border-radius:12px; padding:16px; }
+    .small { font-size:12px; opacity:.8; }
+    button, input[type="range"] { accent-color:#e2b766; }
+    button { padding:10px 14px; border-radius:8px; border:1px solid #333; background:#1d1d1d; color:#eee; cursor:pointer; }
+    button:hover { background:#242424; }
+    .meter { height:12px; background:#1e1e1e; border:1px solid #333; border-radius:8px; overflow:hidden; }
+    .bar { height:100%; width:0%; background:linear-gradient(90deg,#b98c2e,#ffd27a); }
+    canvas#cam { width:100%; max-width:320px; background:#000; border-radius:8px; display:block; }
+    pre { white-space:pre-wrap; word-break:break-word; background:#101010; padding:10px; border:1px solid #222; border-radius:8px; }
+    label { display:block; margin:6px 0 4px; }
+    .kv { display:flex; justify-content:space-between; gap:8px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>cliented1 (Desktop)</h1>
+    <p id="status">Estado: desconectado</p>
+
+    <div class="row">
+      <div class="card">
+        <h3>Micrófono</h3>
+        <p class="small">Captura de audio con WebAudio → nivel RMS 0..1 (suavizado).</p>
+        <div class="kv">
+          <button id="btnMic">Iniciar micrófono</button>
+          <span id="micState" class="small">apagado</span>
+        </div>
+        <label for="slMicGain">Ganancia (post-RMS)</label>
+        <input id="slMicGain" type="range" min="0.3" max="4" step="0.1" value="1">
+        <div class="meter" style="margin-top:10px"><div id="micBar" class="bar"></div></div>
+        <div class="kv small" style="margin-top:6px">
+          <span>RMS:</span><span id="micVal">0.00</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Cámara (opcional)</h3>
+        <p class="small">Calcula motion por diferencia de frames (0..1 aprox.).</p>
+        <div class="kv">
+          <button id="btnCam">Iniciar cámara</button>
+          <span id="camState" class="small">apagada</span>
+        </div>
+        <canvas id="cam" width="320" height="240"></canvas>
+        <div class="meter" style="margin-top:10px"><div id="motionBar" class="bar"></div></div>
+        <div class="kv small" style="margin-top:6px">
+          <span>Motion:</span><span id="motionVal">0.00</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Entrada de escritorio</h3>
+        <p class="small">Mouse y teclas (W/A/S/D, flechas, espacio) → enviados al servidor.</p>
+        <div class="kv small">
+          <span>Mouse:</span><span id="mouseOut">x:0 y:0</span>
+        </div>
+        <div class="kv small">
+          <span>Keys:</span><span id="keysOut">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Debug (payload enviado)</h3>
+      <pre id="debugOut"></pre>
+    </div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./sketch.js"></script>
+</body>
+</html>
+

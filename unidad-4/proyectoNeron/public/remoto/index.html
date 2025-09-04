@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Control Remoto</title>
+
+  <!-- Socket.IO desde CDN -->
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+  <!-- Estilos opcionales -->
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#0b0b0c; color:#e8e8ea; }
+    .wrap { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+    header { display:flex; align-items:baseline; gap:16px; margin-bottom: 12px; }
+    #status { opacity:.85; font-size:14px; }
+    .card { background:#121216; border:1px solid #1f1f28; border-radius:14px; padding:16px; margin:14px 0; box-shadow: 0 6px 24px #0006; }
+    h3 { margin:6px 0 12px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .state-buttons { display:flex; gap:10px; flex-wrap:wrap; }
+    button { background:#2b2f3a; border:1px solid #3a3f4d; color:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; }
+    button:hover { background:#343948; }
+    button.active { background:#4a5063; border-color:#606884; }
+    input[type=range]{ width: 280px; }
+    input[type=text]{ background:#0f0f14; border:1px solid #232331; color:#e8e8ea; padding:8px 10px; border-radius:10px; min-width:220px; }
+    .hint { opacity:.9; }
+    .quick { display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+    .logs { list-style: none; padding: 10px 12px; margin: 0; max-height: 260px; overflow:auto; background:#0f0f14; border:1px solid #232331; border-radius:10px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .logs li { color:#9ef09e; font-size:12.5px; padding:4px 0; border-bottom:1px dashed #2a2a38; }
+    .logs li:last-child { border-bottom:0; }
+    label { width: 18px; opacity:.9; }
+    .val { width: 44px; text-align:right; opacity:.9; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h2>Control Remoto</h2>
+      <p id="status">Conectando…</p>
+    </header>
+
+    <section class="card">
+      <h3>Estado</h3>
+      <div class="state-buttons">
+        <button data-state="0">Estado 0</button>
+        <button data-state="1">Estado 1</button>
+        <button data-state="2">Estado 2</button>
+      </div>
+      <p class="hint">Actual: <b id="stateLabel">—</b></p>
+    </section>
+
+    <section class="card">
+      <h3>Parámetros del estado activo</h3>
+      <div class="row">
+        <label for="pa">a</label>
+        <input id="pa" type="range" min="0" max="1" step="0.01" value="0.60" />
+        <span id="pa_v" class="val">0.60</span>
+      </div>
+      <div class="row">
+        <label for="pb">b</label>
+        <input id="pb" type="range" min="0" max="1" step="0.01" value="0.60" />
+        <span id="pb_v" class="val">0.60</span>
+      </div>
+      <div class="row">
+        <label for="pc">c</label>
+        <input id="pc" type="range" min="0" max="1" step="0.01" value="0.60" />
+        <span id="pc_v" class="val">0.60</span>
+      </div>
+      <div class="quick">
+        <button data-preset="calm">Suave</button>
+        <button data-preset="neutral">Neutro</button>
+        <button data-preset="strong">Intenso</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Acciones Fase III</h3>
+      <div class="row">
+        <input id="word" type="text" placeholder="palabra…" />
+        <button id="btnWord">Enviar palabra</button>
+        <button id="btnAmanecer">Amanecer</button>
+      </div>
+      <p class="hint">Compatibles con visuales que escuchan <code>palabra</code> y <code>amanecer</code>.</p>
+    </section>
+
+    <section class="card">
+      <h3>Eventos y debug</h3>
+      <div class="row">
+        <button id="btnPulse">Emitir lunaPulse</button>
+        <button id="btnMove">Emitir move</button>
+      </div>
+      <ul id="logs" class="logs"></ul>
+    </section>
+  </main>
+
+  <script src="./sketch.js"></script>
+</body>
+</html>

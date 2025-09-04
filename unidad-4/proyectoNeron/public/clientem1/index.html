@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>clientem1 (Android)</title>
+  <style>
+    body { margin:0; font-family:system-ui,Segoe UI,Roboto,Arial; background:#0b0b0b; color:#e6e6e6; }
+    .wrap { max-width:720px; margin:24px auto; padding:0 16px; }
+    .card { background:#121212; border:1px solid #222; border-radius:12px; padding:16px; margin:12px 0; }
+    button { padding:10px 14px; border-radius:8px; border:1px solid #333; background:#1e1e1e; color:#e6e6e6; }
+    button:hover { background:#232323; }
+    pre { white-space:pre-wrap; word-break:break-word; }
+    .ok { color:#8ef58e } .bad { color:#ff7a7a }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>clientem1 (Android)</h1>
+    <p>Estado socket: <b id="status" class="bad">desconectado</b></p>
+
+    <div class="card">
+      <button id="btnStart">Iniciar sensores</button>
+      <button id="btnPulse">Enviar lunaPulse</button>
+      <button id="btnPing">Enviar PING (debug)</button>
+    </div>
+
+    <div class="card">
+      <h3>Datos enviados</h3>
+      <pre id="out" style="height:240px; overflow:auto;"></pre>
+    </div>
+
+    <div class="card">
+      <h3>Último PING eco del servidor</h3>
+      <pre id="pong" style="height:120px; overflow:auto;"></pre>
+    </div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./sketch.js"></script>
+</body>
+</html>

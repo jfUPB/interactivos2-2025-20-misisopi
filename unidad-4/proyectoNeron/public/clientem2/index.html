@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>clientem2</title>
+  <style>
+    body { margin:0; font-family:system-ui,Segoe UI,Roboto,Arial; background:#0b0b0b; color:#e8e8e8; }
+    main { max-width:720px; margin:24px auto; padding:0 16px; }
+    .card { background:#141414; border:1px solid #252525; border-radius:12px; padding:16px; margin:12px 0; }
+    button { padding:10px 14px; border-radius:8px; border:1px solid #333; background:#1e1e1e; color:#e8e8e8; }
+    button:hover { background:#242424; }
+    pre { white-space:pre-wrap; word-break:break-word; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>clientem2</h1>
+    <p id="status">Estado: desconectado</p>
+
+    <div class="card">
+      <button id="perm">Permiso orientación</button>
+      <button id="pulse">Enviar Pulso (lunaPulse)</button>
+    </div>
+
+    <div class="card">
+      <h3>Orientación</h3>
+      <pre id="ori"></pre>
+    </div>
+    <div class="card">
+      <h3>Magnitud simulada (mag)</h3>
+      <pre id="mag"></pre>
+    </div>
+    <div class="card">
+      <h3>Touch</h3>
+      <p>Presiona y arrastra en la pantalla del móvil para activar touch</p>
+      <pre id="tou"></pre>
+    </div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./sketch.js"></script>
+</body>
+</html>
