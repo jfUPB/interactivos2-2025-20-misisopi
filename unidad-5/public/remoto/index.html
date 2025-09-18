@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remoto - Pulsaciones Lunares</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f1f 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 25px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(168, 218, 220, 0.3);
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #a8dadc, #457b9d, #1d3557);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 10px rgba(168, 218, 220, 0.3));
+                transform: scale(1);
+            }
+            50% { 
+                filter: drop-shadow(0 0 25px rgba(168, 218, 220, 0.6));
+                transform: scale(1.02);
+            }
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: #a8dadc;
+        }
+
+        /* Main Area */
+        .main-area {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            padding: 20px;
+        }
+
+        #p5-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .moon-control {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pulse-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            border: 3px solid rgba(168, 218, 220, 0.9);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulseExpand 2s ease-out forwards;
+        }
+
+        @keyframes pulseExpand {
+            0% {
+                width: 120px;
+                height: 120px;
+                opacity: 1;
+                border-width: 3px;
+            }
+            100% {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+                border-width: 1px;
+            }
+        }
+
+        .moon-button {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(168, 218, 220, 0.8) 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(168, 218, 220, 0.6);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 10;
+        }
+
+        .moon-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(168, 218, 220, 0.8);
+            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(168, 218, 220, 0.9) 100%);
+        }
+
+        .moon-button:active {
+            transform: scale(0.95);
+        }
+
+        .moon-button.connection-error {
+            animation: connectionError 1s ease-out;
+            background: radial-gradient(circle, rgba(255, 100, 100, 0.9) 0%, rgba(255, 50, 50, 0.6) 100%);
+            border-color: rgba(255, 100, 100, 0.8);
+            box-shadow: 0 0 40px rgba(255, 100, 100, 0.6);
+        }
+
+        @keyframes connectionError {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            50% { transform: scale(0.9) rotate(5deg); }
+            75% { transform: scale(1.05) rotate(-3deg); }
+        }
+
+        .moon-icon {
+            font-size: 4rem;
+            margin-bottom: 8px;
+            animation: moonFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes moonFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(5deg); }
+        }
+
+        .moon-text {
+            text-align: center;
+            color: #1d3557;
+        }
+
+        .main-text {
+            display: block;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .sub-text {
+            display: block;
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .pulse-active {
+            animation: pulseActivation 0.8s ease-out;
+        }
+
+        @keyframes pulseActivation {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 40px rgba(168, 218, 220, 0.6);
+            }
+            50% {
+                transform: scale(1.25);
+                box-shadow: 0 0 100px rgba(168, 218, 220, 1.2);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 40px rgba(168, 218, 220, 0.6);
+            }
+        }
+
+        /* Controls Panel */
+        .controls-panel {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 25px 20px;
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(168, 218, 220, 0.2);
+            display: block;
+            max-height: none;
+            overflow: visible;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .control-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(168, 218, 220, 0.2);
+        }
+
+        .control-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #a8dadc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Intensity Controls */
+        .intensity-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        #intensity-slider {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        #intensity-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(45deg, #a8dadc, #457b9d);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(168, 218, 220, 0.5);
+        }
+
+        .intensity-display {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #a8dadc;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .intensity-presets {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .preset-btn {
+            background: rgba(0, 0, 0, 0.4);
+            color: #a8dadc;
+            border: 2px solid #457b9d;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .preset-btn:hover {
+            background: rgba(69, 123, 157, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .preset-btn.active {
+            background: #457b9d;
+            color: white;
+            box-shadow: 0 0 15px rgba(69, 123, 157, 0.5);
+        }
+
+        /* Mode Controls */
+        .mode-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mode-btn {
+            background: rgba(0, 0, 0, 0.4);
+            color: #a8dadc;
+            border: 2px solid #457b9d;
+            padding: 15px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+
+        .mode-btn:hover {
+            background: rgba(69, 123, 157, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .mode-btn.active {
+            background: #457b9d;
+            color: white;
+            box-shadow: 0 0 15px rgba(69, 123, 157, 0.5);
+        }
+
+        /* Auto Pulse Controls */
+        .auto-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .auto-btn {
+            background: rgba(0, 0, 0, 0.4);
+            color: #a8dadc;
+            border: 2px solid #457b9d;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .auto-btn:hover {
+            background: rgba(69, 123, 157, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .auto-btn.active {
+            background: #06d6a0;
+            border-color: #06d6a0;
+            color: white;
+            box-shadow: 0 0 15px rgba(6, 214, 160, 0.5);
+        }
+
+        .bpm-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bpm-control label {
+            color: #a8dadc;
+            font-weight: bold;
+            min-width: 40px;
+        }
+
+        #bpm-slider {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        #bpm-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #06d6a0;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(6, 214, 160, 0.5);
+        }
+
+        #bpm-value {
+            color: #06d6a0;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            backdrop-filter: blur(15px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid rgba(168, 218, 220, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            color: #a8dadc;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #f1faee;
+        }
+
+        .stat-value.connected {
+            color: #06d6a0;
+        }
+
+        .stat-value.disconnected {
+            color: #e63946;
+        }
+
+        .instructions {
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            border-top: 1px solid rgba(168, 218, 220, 0.2);
+            padding-top: 15px;
+        }
+
+        .instructions p {
+            margin: 5px 0;
+            color: #a8dadc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .moon-button {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .moon-icon {
+                font-size: 3rem;
+            }
+            
+            .controls-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .intensity-presets {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌙 Control Remoto Lunar</h1>
+            <p>Haz latir el corazón de la luna en las visuales principales</p>
+        </div>
+        
+        <div class="main-area">
+            <div id="p5-container"></div>
+            
+            <div class="moon-control" id="moon-control">
+                <div class="pulse-rings" id="pulse-rings"></div>
+                <div class="moon-button" id="moon-button">
+                    <div class="moon-icon">🌙</div>
+                    <div class="moon-text">
+                        <span class="main-text">PULSAR LUNA</span>
+                        <span class="sub-text">Toca para enviar energía</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls-panel">
+            <div class="controls-grid">
+                <div class="control-section">
+                    <h3>⚡ Intensidad del Pulso</h3>
+                    <div class="intensity-control">
+                        <input type="range" id="intensity-slider" min="0.3" max="3" value="1" step="0.1">
+                        <div class="intensity-display">
+                            <span id="intensity-value">1.0</span>x
+                        </div>
+                    </div>
+                    <div class="intensity-presets">
+                        <button class="preset-btn" data-value="0.5">Suave</button>
+                        <button class="preset-btn active" data-value="1.0">Normal</button>
+                        <button class="preset-btn" data-value="1.5">Fuerte</button>
+                        <button class="preset-btn" data-value="2.5">Máximo</button>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>🎵 Modo de Pulso</h3>
+                    <div class="mode-buttons">
+                        <button class="mode-btn active" data-mode="single">
+                            <span>💫</span>
+                            <span>Pulso Simple</span>
+                        </button>
+                        <button class="mode-btn" data-mode="rhythm">
+                            <span>🎶</span>
+                            <span>Ritmo</span>
+                        </button>
+                        <button class="mode-btn" data-mode="wave">
+                            <span>🌊</span>
+                            <span>Onda</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>🤖 Auto Pulso</h3>
+                    <div class="auto-controls">
+                        <button id="auto-pulse-btn" class="auto-btn">Activar Auto Pulso</button>
+                        <div class="bpm-control">
+                            <label>BPM:</label>
+                            <input type="range" id="bpm-slider" min="60" max="180" value="120">
+                            <span id="bpm-value">120</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🔗</div>
+                    <div class="stat-content">
+                        <span class="stat-label">Estado</span>
+                        <span id="connection-status" class="stat-value">Conectando...</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💫</div>
+                    <div class="stat-content">
+                        <span class="stat-label">Pulsos Enviados</span>
+                        <span id="pulses-count" class="stat-value">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">❤️</div>
+                    <div class="stat-content">
+                        <span class="stat-label">BPM Actual</span>
+                        <span id="current-bpm" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <p>🫀 Cada pulso hace latir la luna en la visualización principal</p>
+                <p>🌊 Múltiples usuarios pueden sincronizar sus pulsos</p>
+                <p>🎵 Ajusta intensidad y modo para diferentes efectos</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let socket;
+        let pulseIntensity = 1.0;
+        let pulseMode = 'single';
+        let connectionStatus = 'Conectando...';
+        let pulsesCount = 0;
+        let currentBPM = 0;
+        let lastPulseTimes = [];
+        let autoPulseActive = false;
+        let autoPulseInterval = null;
+        let targetBPM = 120;
+        let isConnected = false;
+
+        // p5.js variables
+        let particles = [];
+        let backgroundWaves = [];
+        let pulseEffects = [];
+
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('p5-container');
+            
+            // Setup socket
+            setupSocket();
+            
+            // Setup controls
+            setupControls();
+            
+            // Initialize particles
+            for (let i = 0; i < 30; i++) {
+                particles.push(createParticle());
+            }
+            
+            // Initialize background waves
+            for (let i = 0; i < 6; i++) {
+                backgroundWaves.push({
+                    y: random(height),
+                    amplitude: random(15, 40),
+                    frequency: random(0.002, 0.008),
+                    speed: random(0.8, 1.5),
+                    alpha: random(25, 60),
+                    direction: random() > 0.5 ? 1 : -1
+                });
+            }
+        }
+
+        function draw() {
+            // Animated background
+            for (let i = 0; i <= height; i++) {
+                let inter = map(i, 0, height, 0, 1);
+                let wave = sin(i * 0.008 + millis() * 0.0003) * 0.1;
+                let connectionBoost = isConnected ? 1.2 : 1.0;
+                let c = lerpColor(
+                    color(15 * connectionBoost, 15 * connectionBoost, 35 * connectionBoost), 
+                    color(25 * connectionBoost, 40 * connectionBoost, 70 * connectionBoost), 
+                    inter + wave
+                );
+                stroke(c);
+                line(0, i, width, i);
+            }
+            
+            // Aurora effect
+            noStroke();
+            for (let i = 0; i < 3; i++) {
+                let baseAlpha = isConnected ? 12 : 6;
+                let auroraAlpha = baseAlpha + sin(millis() * 0.001 + i * 2) * 4;
+                fill(168, 218, 220, auroraAlpha);
+                
+                beginShape();
+                for (let x = 0; x <= width; x += 30) {
+                    let y = height * 0.7 + sin(x * 0.01 + millis() * 0.001 + i) * 40;
+                    vertex(x, y);
+                }
+                vertex(width, height);
+                vertex(0, height);
+                endShape(CLOSE);
+            }
+
+            // Draw particles
+            drawParticles();
+            
+            // Draw pulse effects
+            drawPulseEffects();
+            
+            // Update system
+            updateSystem();
+        }
+
+        function drawParticles() {
+            noStroke();
+            for (let particle of particles) {
+                let baseAlpha = isConnected ? particle.baseAlpha * 1.2 : particle.baseAlpha * 0.8;
+                let alpha = baseAlpha + sin(millis() * 0.002 + particle.phase) * 30;
+                fill(255, 255, 255, alpha);
+                ellipse(particle.x, particle.y, particle.size);
+            }
+        }
+
+        function drawPulseEffects() {
+            noFill();
+            for (let i = pulseEffects.length - 1; i >= 0; i--) {
+                let effect = pulseEffects[i];
+                let age = millis() - effect.startTime;
+                let maxAge = 3000;
+                
+                if (age < maxAge) {
+                    let progress = age / maxAge;
+                    let radius = progress * 500 * effect.intensity;
+                    let alpha = (1 - progress) * 200;
+                    
+                    for (let ring = 0; ring < 4; ring++) {
+                        let ringRadius = radius * (1 + ring * 0.2);
+                        let ringAlpha = alpha * (1 - ring * 0.25);
+                        
+                        stroke(168, 218, 220, ringAlpha);
+                        strokeWeight((4 - ring) * effect.intensity);
+                        ellipse(effect.x, effect.y, ringRadius * 2);
+                    }
+                } else {
+                    pulseEffects.splice(i, 1);
+                }
+            }
+        }
+
+        function updateSystem() {
+            // Update particles
+            for (let particle of particles) {
+                particle.x += particle.vx || 0;
+                particle.y += particle.vy || 0;
+                
+                if (particle.x < -10) particle.x = width + 10;
+                if (particle.x > width + 10) particle.x = -10;
+                if (particle.y < -10) particle.y = height + 10;
+                if (particle.y > height + 10) particle.y = -10;
+                
+                particle.vx = (particle.vx || 0) + random(-0.05, 0.05);
+                particle.vy = (particle.vy || 0) + random(-0.05, 0.05);
+                particle.vx = constrain(particle.vx || 0, -1, 1);
+                particle.vy = constrain(particle.vy || 0, -1, 1);
+            }
+            
+            // Update BPM
+            updateBPM();
+        }
+
+        function createParticle() {
+            return {
+                x: random(width),
+                y: random(height),
+                vx: random(-0.3, 0.3),
+                vy: random(-0.3, 0.3),
+                size: random(1, 4),
+                baseAlpha: random(30, 80),
+                phase: random(TWO_PI)
+            };
+        }
+
+        function mousePressed() {
+            if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+                if (isConnected) {
+                    sendPulse();
+                } else {
+                    showConnectionError();
+                }
+            }
+        }
+
+        function sendPulse() {
+            if (!socket || !socket.connected) {
+                showConnectionError();
+                return;
+            }
+            
+            lastPulseTimes.push(millis());
+            createLocalPulseEffect();
+            
+            let pulseData = {
+                intensity: pulseIntensity,
+                mode: pulseMode,
+                timestamp: Date.now()
+            };
+            
+            socket.emit('pulse', pulseData);
+            pulsesCount++;
+            updateUI();
+            
+            console.log('Pulso enviado:', pulseData);
+        }
+
+        function showConnectionError() {
+            const moonButton = document.getElementById('moon-button');
+            moonButton.classList.add('connection-error');
+            
+            setTimeout(() => {
+                moonButton.classList.remove('connection-error');
+            }, 1000);
+        }
+
+        function createLocalPulseEffect() {
+            const moonButton = document.getElementById('moon-button');
+            moonButton.classList.add('pulse-active');
+            
+            setTimeout(() => {
+                moonButton.classList.remove('pulse-active');
+            }, 800);
+            
+            const pulseRings = document.getElementById('pulse-rings');
+            const ring = document.createElement('div');
+            ring.className = 'pulse-ring';
+            ring.style.animationDuration = (2 / pulseIntensity) + 's';
+            pulseRings.appendChild(ring);
+            
+            setTimeout(() => {
+                if (ring.parentNode) {
+                    ring.parentNode.removeChild(ring);
+                }
+            }, 2000 / pulseIntensity);
+            
+            let centerX = width / 2;
+            let centerY = height / 2;
+            
+            pulseEffects.push({
+                x: centerX,
+                y: centerY,
+                intensity: pulseIntensity,
+                startTime: millis()
+            });
+        }
+
+        function updateBPM() {
+            let cutoff = millis() - 10000;
+            lastPulseTimes = lastPulseTimes.filter(time => time > cutoff);
+            
+            if (lastPulseTimes.length > 1) {
+                let intervals = [];
+                for (let i = 1; i < lastPulseTimes.length; i++) {
+                    intervals.push(lastPulseTimes[i] - lastPulseTimes[i-1]);
+                }
+                
+                if (intervals.length > 0) {
+                    let avgInterval = intervals.reduce((a, b) => a + b) / intervals.length;
+                    currentBPM = Math.round(60000 / avgInterval);
+                    currentBPM = constrain(currentBPM, 0, 300);
+                }
+            } else {
+                currentBPM = 0;
+            }
+            
+            document.getElementById('current-bpm').textContent = currentBPM;
+        }
+
+        function setupControls() {
+            // Intensity slider
+            const intensitySlider = document.getElementById('intensity-slider');
+            const intensityValue = document.getElementById('intensity-value');
+            
+            intensitySlider.addEventListener('input', function() {
+                pulseIntensity = parseFloat(this.value);
+                intensityValue.textContent = pulseIntensity.toFixed(1);
+                
+                document.querySelectorAll('.preset-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (Math.abs(parseFloat(btn.dataset.value) - pulseIntensity) < 0.1) {
+                        btn.classList.add('active');
+                    }
+                });
+            });
+            
+            // Preset buttons
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    pulseIntensity = parseFloat(this.dataset.value);
+                    intensitySlider.value = pulseIntensity;
+                    intensityValue.textContent = pulseIntensity.toFixed(1);
+                    
+                    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Mode buttons
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    pulseMode = this.dataset.mode;
+                    console.log('Modo cambiado a:', pulseMode);
+                });
+            });
+            
+            // Main moon button
+            document.getElementById('moon-button').addEventListener('click', () => {
+                if (isConnected) {
+                    sendPulse();
+                } else {
+                    showConnectionError();
+                }
+            });
+            
+            // Auto pulse controls
+            const autoPulseBtn = document.getElementById('auto-pulse-btn');
+            const bpmSlider = document.getElementById('bpm-slider');
+            const bpmValue = document.getElementById('bpm-value');
+            
+            bpmSlider.addEventListener('input', function() {
+                targetBPM = parseInt(this.value);
+                bpmValue.textContent = targetBPM;
+                
+                if (autoPulseActive) {
+                    clearInterval(autoPulseInterval);
+                    let interval = 60000 / targetBPM;
+                    autoPulseInterval = setInterval(() => {
+                        if (isConnected) {
+                            sendPulse();
+                        }
+                    }, interval);
+                }
+            });
+            
+            autoPulseBtn.addEventListener('click', function() {
+                if (!isConnected) {
+                    showConnectionError();
+                    return;
+                }
+                
+                if (!autoPulseActive) {
+                    let interval = 60000 / targetBPM;
+                    autoPulseInterval = setInterval(() => {
+                        if (isConnected) {
+                            sendPulse();
+                        } else {
+                            clearInterval(autoPulseInterval);
+                            autoPulseActive = false;
+                            this.textContent = 'Activar Auto Pulso';
+                            this.classList.remove('active');
+                        }
+                    }, interval);
+                    autoPulseActive = true;
+                    this.textContent = 'Detener Auto Pulso';
+                    this.classList.add('active');
+                } else {
+                    clearInterval(autoPulseInterval);
+                    autoPulseActive = false;
+                    this.textContent = 'Activar Auto Pulso';
+                    this.classList.remove('active');
+                }
+            });
+        }
+
+        function setupSocket() {
+            socket = io();
+            
+            socket.on('connect', () => {
+                connectionStatus = 'Conectado';
+                isConnected = true;
+                updateUI();
+                console.log('Conectado al servidor - Listo para controlar la luna');
+            });
+            
+            socket.on('disconnect', () => {
+                connectionStatus = 'Desconectado';
+                isConnected = false;
+                updateUI();
+                
+                if (autoPulseActive) {
+                    clearInterval(autoPulseInterval);
+                    autoPulseActive = false;
+                    document.getElementById('auto-pulse-btn').textContent = 'Activar Auto Pulso';
+                    document.getElementById('auto-pulse-btn').classList.remove('active');
+                }
+                
+                console.log('Desconectado del servidor');
+            });
+            
+            socket.on('newPulse', (data) => {
+                console.log('Confirmación de pulso lunar:', data);
+            });
+            
+            socket.on('heartbeat', (data) => {
+                console.log('Sistema activo');
+            });
+            
+            socket.on('reconnect', () => {
+                console.log('Reconectado automáticamente');
+                connectionStatus = 'Conectado';
+                isConnected = true;
+                updateUI();
+            });
+        }
+
+        function updateUI() {
+            const statusElement = document.getElementById('connection-status');
+            statusElement.textContent = connectionStatus;
+            
+            if (isConnected) {
+                statusElement.className = 'stat-value connected';
+            } else {
+                statusElement.className = 'stat-value disconnected';
+            }
+            
+            document.getElementById('pulses-count').textContent = pulsesCount;
+            
+            const moonButton = document.getElementById('moon-button');
+            if (isConnected) {
+                moonButton.style.opacity = '1';
+                moonButton.style.cursor = 'pointer';
+            } else {
+                moonButton.style.opacity = '0.6';
+                moonButton.style.cursor = 'not-allowed';
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+            
+            particles.forEach(particle => {
+                if (particle.x > width) particle.x = width - 10;
+                if (particle.y > height) particle.y = height - 10;
+            });
+        }
+
+        window.addEventListener('beforeunload', () => {
+            if (autoPulseInterval) {
+                clearInterval(autoPulseInterval);
+            }
+            if (socket && socket.connected) {
+                socket.disconnect();
+            }
+        });
+    </script>
+</body>
+</html>

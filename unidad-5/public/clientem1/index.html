@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile1 - Alimentador de Luna</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌙 Alimentador de Luna</h1>
+            <p>Toca para enviar energía a la luna</p>
+        </div>
+        
+        <div id="p5-container"></div>
+        
+        <div class="controls">
+            <div class="particle-settings">
+                <div class="setting-group">
+                    <div class="setting-label">Cantidad</div>
+                    <input type="range" class="setting-slider" id="quantity-slider" min="1" max="10" value="3">
+                    <div class="setting-value" id="quantity-value">3</div>
+                </div>
+                <div class="setting-group">
+                    <div class="setting-label">Tamaño</div>
+                    <input type="range" class="setting-slider" id="size-slider" min="0.5" max="3" value="1" step="0.1">
+                    <div class="setting-value" id="size-value">1.0</div>
+                </div>
+                <div class="setting-group">
+                    <div class="setting-label">Intensidad</div>
+                    <input type="range" class="setting-slider" id="intensity-slider" min="0.3" max="2" value="1" step="0.1">
+                    <div class="setting-value" id="intensity-value">1.0</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="status">
+                <span id="connection-status">Conectando...</span>
+                <span id="particles-count">Partículas: 0</span>
+            </div>
+            <div class="instructions">
+                <p>✨ Toca la pantalla para enviar partículas de luz a la luna</p>
+                <p>🎛️ Ajusta los parámetros para cambiar el efecto</p>
+                <p>🌙 Las partículas alimentarán la luna en las visuales</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>

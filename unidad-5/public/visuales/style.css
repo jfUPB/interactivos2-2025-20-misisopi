@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: white;
+    overflow: hidden;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+h1 {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, #ffffff, #a8dadc, #457b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    z-index: 10;
+}
+
+#p5-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.controls {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 25px;
+    border-radius: 25px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10;
+}
+
+#fullscreen-btn {
+    background: linear-gradient(45deg, #ffffff, #f0f0f0);
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+#fullscreen-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+
+.status {
+    display: flex;
+    gap: 25px;
+    font-size: 0.85rem;
+}
+
+#connection-status {
+    color: #f1faee;
+}
+
+#connection-status.connected {
+    color: #06d6a0;
+}
+
+#connection-status.disconnected {
+    color: #ef476f;
+}
+
+.speed-indicator {
+    color: #a8dadc;
+    font-weight: bold;
+}
+
+.stats {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.2rem;
+        top: 15px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+        bottom: 15px;
+        left: 15px;
+        right: 15px;
+        padding: 20px;
+    }
+    
+    .status {
+        gap: 20px;
+        font-size: 0.8rem;
+    }
+}

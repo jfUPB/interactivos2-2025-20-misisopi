@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop1 - Arte Lunar</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h1>🌙 Arte Lunar</h1>
+                <p>Dibuja dentro de la luna - Crea arte para las visuales</p>
+            </div>
+            <div class="header-status">
+                <span id="connection-status">Conectando...</span>
+                <span id="drawings-count">Trazos: 0</span>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="canvas-container">
+                <div id="p5-container"></div>
+                <div class="moon-guide" id="moon-guide">
+                    <span>Área de dibujo lunar ✨</span>
+                </div>
+            </div>
+            
+            <div class="controls-panel">
+                <div class="drawing-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Estado:</span>
+                        <span class="stat-value" id="connection-display">Conectando...</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Mis Trazos:</span>
+                        <span class="stat-value" id="my-drawings">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Total Arte:</span>
+                        <span class="stat-value" id="total-drawings">0</span>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>🎨 Paleta de Colores</h3>
+                    <div class="color-palette">
+                        <div class="color-option active" data-color="#ffffff" style="background: #ffffff;"></div>
+                        <div class="color-option" data-color="#a8dadc" style="background: #a8dadc;"></div>
+                        <div class="color-option" data-color="#457b9d" style="background: #457b9d;"></div>
+                        <div class="color-option" data-color="#1d3557" style="background: #1d3557;"></div>
+                        <div class="color-option" data-color="#90ee90" style="background: #90ee90;"></div>
+                        <div class="color-option" data-color="#ffb6c1" style="background: #ffb6c1;"></div>
+                        <div class="color-option" data-color="#dda0dd" style="background: #dda0dd;"></div>
+                        <div class="color-option" data-color="#ffe4b5" style="background: #ffe4b5;"></div>
+                    </div>
+                </div>
+                
+                <div class="control-section">
+                    <h3>✏️ Pincel</h3>
+                    <div class="brush-controls">
+                        <label for="brush-size">Tamaño:</label>
+                        <input type="range" id="brush-size" min="2" max="20" value="5">
+                        <span id="brush-value">5</span>
+                    </div>
+                    <div class="brush-preview">
+                        <div class="preview-circle" id="brush-preview"></div>
+                    </div>
+                </div>
+                
+                <div class="control-section">
+                    <h3>⚡ Acciones</h3>
+                    <div class="action-buttons">
+                        <button id="clear-btn" class="action-btn danger">
+                            🗑️ Limpiar Mis Trazos
+                        </button>
+                        <button id="clear-all-btn" class="action-btn secondary">
+                            🧹 Limpiar Todo
+                        </button>
+                        <button id="save-btn" class="action-btn success">
+                            💾 Guardar Arte
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="control-section">
+                    <h3>ℹ️ Instrucciones</h3>
+                    <ul class="info-list">
+                        <li>🎯 Dibuja solo dentro del círculo lunar</li>
+                        <li>⚡ Tu arte aparece en tiempo real en las visuales</li>
+                        <li>👥 Colabora con otros organizadores</li>
+                        <li>🌙 El arte se integra con los efectos lunares</li>
+                        <li>✨ Usa colores suaves para mejor integración</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>
