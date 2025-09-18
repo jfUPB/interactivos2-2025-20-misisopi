@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nod Krai - Visuales Principales</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🌙 Nod Krai - Aurora</h1>
+        <div id="p5-container"></div>
+        <div class="controls">
+            <button id="fullscreen-btn">Pantalla Completa</button>
+            <div class="status">
+                <span id="connection-status">Conectando...</span>
+                <span class="speed-indicator">Velocidad: <span id="speed-value">1.0x</span></span>
+                <span class="stats">Partículas: <span id="particles-count">0</span></span>
+                <span class="stats">Ondas: <span id="waves-count">0</span></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>
