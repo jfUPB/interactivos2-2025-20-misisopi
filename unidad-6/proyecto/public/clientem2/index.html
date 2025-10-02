@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile2 - Control de Fragmentos</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="header-title">⚡ Control de Velocidad</h1>
+            <p id="header-desc">Controla la velocidad del sistema y genera ondas</p>
+        </div>
+        
+        <div class="controls">
+            <!-- Estado 1 Controls -->
+            <div class="control-section state-1-controls">
+                <div class="control-label">Velocidad del Sistema</div>
+                <input type="range" class="speed-slider" id="speed-slider" min="0.1" max="3" value="1" step="0.1">
+                <div class="speed-display">
+                    <span id="speed-value">1.0</span>x
+                </div>
+                <div class="preset-buttons">
+                    <button class="preset-btn" data-value="0.2">Muy Lenta</button>
+                    <button class="preset-btn active" data-value="1.0">Normal</button>
+                    <button class="preset-btn" data-value="1.8">Rápida</button>
+                    <button class="preset-btn" data-value="3.0">Máxima</button>
+                </div>
+            </div>
+            
+            <!-- Estado 2 Controls - FRAGMENTOS -->
+            <div class="fragment-controls state-2-controls">
+                <div class="control-label">Control de Fragmentos</div>
+                
+                <!-- Acciones principales -->
+                <div class="fragment-actions">
+                    <button class="fragment-btn regroup-btn" id="regroup-btn">
+                        🔄 Reagrupar
+                    </button>
+                    <button class="fragment-btn disperse-btn" id="disperse-btn">
+                        💥 Dispersar
+                    </button>
+                </div>
+                
+                <!-- Slider de Gravedad -->
+                <div class="slider-group">
+                    <label>Gravedad: <span id="gravity-value">1.0</span>
+                        <small>Atracción al centro</small>
+                    </label>
+                    <input type="range" class="fragment-slider" id="gravity-slider" 
+                           min="0" max="3" value="1" step="0.1">
+                </div>
+                
+                <!-- Slider de Caos -->
+                <div class="slider-group">
+                    <label>Caos: <span id="chaos-value">1.0</span>
+                        <small>Movimiento errático</small>
+                    </label>
+                    <input type="range" class="fragment-slider" id="chaos-slider" 
+                           min="0" max="3" value="1" step="0.1">
+                </div>
+                
+                <!-- Slider de Temperatura -->
+                <div class="slider-group">
+                    <label>Temperatura Global: <span id="temp-value">50</span>%
+                        <small>Calor de todos los fragmentos</small>
+                    </label>
+                    <input type="range" class="fragment-slider" id="temp-slider" 
+                           min="0" max="100" value="50" step="5">
+                </div>
+                
+                <!-- Efecto Cadena -->
+                <div class="chain-control">
+                    <button class="fragment-btn chain-btn" id="chain-btn">
+                        ⚡ Efecto Cadena
+                    </button>
+                    <small>Reacción en cadena entre fragmentos</small>
+                </div>
+            </div>
+            
+            <div class="wave-area" id="wave-area">
+                <div class="wave-instruction">
+                    Toca para generar ondas<br>
+                    <small>Las ondas aparecerán en las visuales principales</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="status">
+                <span id="connection-status">Conectando...</span>
+                <span id="action-count">Acciones: 0</span>
+            </div>
+            <div class="instructions">
+                <p class="state-1-instruction">🌊 Controla la velocidad global del sistema</p>
+                <p class="state-1-instruction">💫 Toca el área para crear ondas en tiempo real</p>
+                <p class="state-2-instruction">🌋 Manipula los fragmentos volcánicos de la luna</p>
+                <p class="state-2-instruction">🔥 Controla gravedad, caos y temperatura</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>
