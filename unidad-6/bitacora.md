@@ -21,26 +21,63 @@ Has utilizado la rúbrica para obtener tu **"Nota Base"**. Ahora, reflexiona hon
   
 
 ## Evidencia 1: concepto de visuales en vivo
-
-> Escribe aquí. Inicia cada renglón con un "> "
+> ### Concepto de las visuales en vivo
+>  Las visuales representan la transformación de la luna desde un estado celeste y etéreo (estado 1) hacia un estado volcánico, cromático y ritual (estado 2).
+> **En esta transición:**
+> La luna ya no es solo un cuerpo pasivo que recibe semillas/estrellas, sino un núcleo vivo que arde, vibra y se fractura.
+> Cada cliente activa un rol en este ritual:
 >
+> - Mobile1 aporta la energía directa del público (meteoros de color).
+>
+> - Mobile2 modula la fuerza de esa energía (intensidad cromática).
+>
+> - Desktop1 abre cicatrices luminosas en la superficie (grietas).
+>
+> - Remoto marca los cambios de fase cromática global (violeta, rojo, dorado).
+>
+> - Visual maestro orquesta la integración, mostrando una luna que se enciende, se fractura y se transforma colectivamente.
 
 
 ## Evidencia 2: diseño de inputs de clientes
-
-> Escribe aquí. Inicia cada renglón con un "> "
+> ### Interacción de los clientes en el segundo estado (luna volcánica y cromática)
 >
+> *Mobile1 – Público (impactos de color):*
+> Cada toque en pantalla no lanza semillas como en el estado 1. Ahora cada tap genera un *meteoro de luz* que viaja hacia la luna y al impactar *la tiñe parcialmente de color* (manchas violetas, rojas o doradas).
+> Entre más taps, más “incandescente” se pone la luna.
+>
+> *Mobile2 – Modulación de trazos (intensidad cromática):*
+> Controla la *saturación y agresividad* del color. Al mover el control, la luna puede pasar de un tono tenue y brillante a un rojo saturado casi volcánico.
+> También puede hacer que las ondas alrededor sean más suaves o más angulosas.
+>
+> *Desktop1 – Organizadores (grietas incandescentes):*
+> Al dibujar sobre la luna, sus trazos se convierten en *fracturas ardientes* que atraviesan la superficie y se iluminan.
+> Estos trazos permanecen como cicatrices temporales, que luego se van cerrando lentamente con un resplandor.
+>
+> *Remoto – Pulsaciones colectivas (cambio de fases de la luna):*
+> Cada clic o tap remoto fuerza a la luna a *cambiar de color globalmente* (ejemplo: de violeta a rojo → a dorado), como si fuera una fase cromática.
+> Mientras más pulsos haya, más rápido va cambiando entre esas fases.
+>
+> *Visual Maestro – Composición (explosión cromática):*
+> Integra todo: la luna ahora es un *núcleo en constante transformación*, que se enciende con meteoros del público, se fractura con los organizadores, cambia de color con los remotos y vibra con la música de las coristas.
+> 
+> De esta manera:
+>
+>* En el estado 1 los clientes eran *alimentadores* (semillas → estrellas).
+>* En el estado 2 se vuelven *activadores* (meteoros, grietas, pulsos cromáticos).
+>
+> Esto refuerza la sensación de que las coristas despiertan un *ritual más agresivo, tribal y poderoso, donde el público no sostiene la luna, sino que la hace **arder*.
 
 ## Evidencia 3: código del proyecto
 
-[ ] Marca esta casilla con una "x" cuando hayas subido el código completo a la carpeta proyecto 
+[x] Marca esta casilla con una "x" cuando hayas subido el código completo a la carpeta proyecto 
 de este repositorio.
 
 ### Evidencia 4: video demo del sistema funcionando
 
-[ESTE ES MI DEMO](https://youtu.be/your-video-link)
+[ESTE ES MI DEMO](https://youtu.be/NyGv6PRt4rI)
 
 
 ### Evidencia 5: interpretación en tiempo real
+
 
 [ ] Esta casilla la marcará el profesor cuando realices la interpretación en tiempo real.
