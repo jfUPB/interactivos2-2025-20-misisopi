@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop1 - Control Lunar y Volcánico</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="canvas-area">
+            <div id="p5-container"></div>
+            <div class="moon-guide" id="moon-guide">
+                <span>Área de dibujo lunar</span>
+            </div>
+        </div>
+        
+        <div class="controls-panel">
+            <div class="header-section">
+                <h1 id="panel-title">🌙 Control Lunar</h1>
+                <p id="panel-description">Conectando al sistema...</p>
+                
+                <div class="status-bar">
+                    <div class="status-item">
+                        <span class="status-label">Estado</span>
+                        <span class="status-value" id="connection-status">...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Modo</span>
+                        <span class="status-value" id="current-mode">...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Elementos</span>
+                        <span class="status-value" id="element-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROLES ESTADO 1: ARTE LUNAR -->
+            <div class="state1-controls" id="state1-controls">
+                <div class="control-section">
+                    <h3>🎨 Paleta de Colores</h3>
+                    <div class="color-palette">
+                        <div class="color-option active" data-color="#ffffff" style="background: #ffffff;"></div>
+                        <div class="color-option" data-color="#a8dadc" style="background: #a8dadc;"></div>
+                        <div class="color-option" data-color="#457b9d" style="background: #457b9d;"></div>
+                        <div class="color-option" data-color="#1d3557" style="background: #1d3557;"></div>
+                        <div class="color-option" data-color="#90ee90" style="background: #90ee90;"></div>
+                        <div class="color-option" data-color="#ffb6c1" style="background: #ffb6c1;"></div>
+                        <div class="color-option" data-color="#dda0dd" style="background: #dda0dd;"></div>
+                        <div class="color-option" data-color="#ffe4b5" style="background: #ffe4b5;"></div>
+                    </div>
+                </div>
+                
+                <div class="control-section">
+                    <h3>✏️ Pincel</h3>
+                    <div class="brush-controls">
+                        <label>Tamaño:</label>
+                        <input type="range" id="brush-size" min="2" max="20" value="5">
+                        <span id="brush-value">5</span>
+                    </div>
+                    <div class="brush-preview">
+                        <div class="preview-circle" id="brush-preview"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROLES ESTADO 2: VOLCÁNICO -->
+            <div class="state2-controls" id="state2-controls">
+                <div class="control-section volcanic-section">
+                    <h3>🌋 Control de Fragmentos</h3>
+                    
+                    <div class="slider-control">
+                        <div class="slider-header">
+                            <span class="slider-label">Gravedad</span>
+                            <span class="slider-value" id="gravity-value">1.0</span>
+                        </div>
+                        <input type="range" class="slider-input" id="gravity-slider" 
+                               min="0" max="2" step="0.1" value="1.0">
+                    </div>
+                    
+                    <div class="slider-control">
+                        <div class="slider-header">
+                            <span class="slider-label">Caos</span>
+                            <span class="slider-value" id="chaos-value">1.0</span>
+                        </div>
+                        <input type="range" class="slider-input" id="chaos-slider" 
+                               min="0" max="2" step="0.1" value="1.0">
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn btn-regroup" id="regroup-btn">
+                            ⚡ Reagrupar
+                        </button>
+                        <button class="btn btn-disperse" id="disperse-btn">
+                            💥 Dispersar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="control-section volcanic-section">
+                    <h3>☄️ Impactos de Meteoritos</h3>
+                    
+                    <div class="impact-mode">
+                        <h4>Color de Meteorito</h4>
+                        <div class="phase-selector">
+                            <div class="phase-option violet active" data-phase="violet">
+                                Violeta
+                            </div>
+                            <div class="phase-option red" data-phase="red">
+                                Rojo
+                            </div>
+                            <div class="phase-option gold" data-phase="gold">
+                                Oro
+                            </div>
+                        </div>
+                        
+                        <div class="slider-control">
+                            <div class="slider-header">
+                                <span class="slider-label">Intensidad</span>
+                                <span class="slider-value" id="intensity-value">1.0</span>
+                            </div>
+                            <input type="range" class="slider-input" id="intensity-slider" 
+                                   min="0.5" max="2" step="0.1" value="1.0">
+                        </div>
+                        
+                        <div class="impact-info">
+                            👆 Haz clic en el canvas para lanzar meteoritos
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACCIONES GENERALES -->
+            <div class="control-section">
+                <h3>⚡ Acciones</h3>
+                <div class="action-buttons">
+                    <button class="btn-full btn-danger" id="clear-btn">
+                        🗑️ Limpiar Mis Elementos
+                    </button>
+                    <button class="btn-full btn-secondary" id="clear-all-btn">
+                        🧹 Limpiar Todo
+                    </button>
+                    <button class="btn-full btn-success" id="save-btn">
+                        💾 Guardar Captura
+                    </button>
+                </div>
+            </div>
+            
+            <div class="control-section">
+                <h3>ℹ️ Instrucciones</h3>
+                <ul class="info-list" id="instructions-list">
+                    <li>🎯 Dibuja dentro del círculo lunar</li>
+                    <li>⚡ Tu arte aparece en tiempo real</li>
+                    <li>💥 Colabora con otros organizadores</li>
+                    <li>🌙 El arte se integra con los efectos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>

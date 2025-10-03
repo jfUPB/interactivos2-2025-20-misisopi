@@ -1,0 +1,436 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+    color: white;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(168, 218, 220, 0.3);
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #a8dadc, #457b9d, #1d3557);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(168, 218, 220, 0.5);
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { 
+        filter: drop-shadow(0 0 20px rgba(168, 218, 220, 0.3));
+    }
+    50% { 
+        filter: drop-shadow(0 0 40px rgba(168, 218, 220, 0.6));
+    }
+}
+
+.header p {
+    font-size: 1rem;
+    opacity: 0.9;
+    color: #a8dadc;
+}
+
+.controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.control-section, .fragment-controls {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(168, 218, 220, 0.2);
+}
+
+/* Estado 1 Controls */
+.state-1-controls {
+    display: block;
+}
+
+.container.state-2 .state-1-controls {
+    display: none;
+}
+
+/* Estado 2 Controls */
+.state-2-controls {
+    display: none;
+}
+
+.container.state-2 .state-2-controls {
+    display: block;
+}
+
+.control-label {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #a8dadc;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilos de Estado 2 - Fragmentos */
+.container.state-2 .header h1 {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a6f, #dc143c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.container.state-2 .control-label {
+    color: #ff6b6b;
+}
+
+/* Acciones de Fragmentos */
+.fragment-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.fragment-btn {
+    padding: 20px 15px;
+    border: 3px solid;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.regroup-btn {
+    border-color: #06d6a0;
+    color: #06d6a0;
+}
+
+.regroup-btn:hover {
+    background: rgba(6, 214, 160, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(6, 214, 160, 0.4);
+}
+
+.disperse-btn {
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+.disperse-btn:hover {
+    background: rgba(255, 107, 107, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+.chain-btn {
+    width: 100%;
+    border-color: #ffa500;
+    color: #ffa500;
+}
+
+.chain-btn:hover {
+    background: rgba(255, 165, 0, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 165, 0, 0.4);
+}
+
+.chain-btn.active {
+    background: rgba(255, 165, 0, 0.3);
+    border-color: #ffcc00;
+    color: #ffcc00;
+    box-shadow: 0 0 30px rgba(255, 165, 0, 0.6);
+}
+
+/* Slider Groups */
+.slider-group {
+    margin-bottom: 25px;
+}
+
+.slider-group label {
+    display: block;
+    color: #f0f0f0;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.fragment-slider, .speed-slider {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    margin-bottom: 8px;
+}
+
+.fragment-slider::-webkit-slider-thumb,
+.speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+}
+
+.container.state-1 .speed-slider::-webkit-slider-thumb {
+    background: linear-gradient(135deg, #6a5acd, #a8dadc);
+    box-shadow: 0 0 15px rgba(106, 90, 205, 0.7);
+}
+
+.fragment-slider::-moz-range-thumb,
+.speed-slider::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+}
+
+.slider-group small {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* Chain Control */
+.chain-control {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.chain-control small {
+    display: block;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+}
+
+/* Speed Controls (Estado 1) */
+.speed-display {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #a8dadc;
+    margin-bottom: 20px;
+}
+
+.preset-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.preset-btn {
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: 2px solid #457b9d;
+    padding: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.preset-btn:hover, .preset-btn.active {
+    background: #457b9d;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(69, 123, 157, 0.4);
+}
+
+/* Wave Area */
+.wave-area {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px solid rgba(168, 218, 220, 0.3);
+    min-height: 150px;
+}
+
+.container.state-2 .wave-area {
+    background: rgba(40, 10, 10, 0.3);
+    border-color: rgba(220, 20, 60, 0.4);
+    min-height: 100px;
+}
+
+.wave-instruction {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.wave-visual {
+    position: absolute;
+    border: 3px solid;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Footer */
+.footer {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 20px;
+    backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(168, 218, 220, 0.2);
+}
+
+.container.state-2 .footer {
+    border-top-color: rgba(220, 20, 60, 0.3);
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+#connection-status {
+    color: #f1faee;
+    padding: 6px 12px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#connection-status.connected {
+    color: #06d6a0;
+    background: rgba(6, 214, 160, 0.1);
+    box-shadow: 0 0 15px rgba(6, 214, 160, 0.3);
+}
+
+#connection-status.disconnected {
+    color: #ef476f;
+    background: rgba(239, 71, 111, 0.1);
+}
+
+#action-count {
+    color: #ffffff;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.instructions {
+    text-align: center;
+}
+
+.instructions p {
+    margin: 3px 0;
+    color: #a8dadc;
+    font-size: 0.85rem;
+}
+
+.container.state-2 .instructions p {
+    color: #ff6b6b;
+}
+
+.state-1-instruction {
+    display: block;
+}
+
+.state-2-instruction {
+    display: none;
+}
+
+.container.state-2 .state-1-instruction {
+    display: none;
+}
+
+.container.state-2 .state-2-instruction {
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.6rem;
+    }
+    
+    .controls {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .control-section, .fragment-controls {
+        padding: 20px;
+    }
+    
+    .preset-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .fragment-actions {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .slider-group {
+        margin-bottom: 20px;
+    }
+    
+    .fragment-btn {
+        padding: 18px 12px;
+        font-size: 1rem;
+    }
+}
+
+/* Efectos volcánicos para estado 2 */
+.container.state-2 .wave-area {
+    animation: volcanoGlow 4s ease-in-out infinite;
+}
+
+@keyframes volcanoGlow {
+    0%, 100% { 
+        box-shadow: inset 0 0 30px rgba(220, 20, 60, 0.2);
+    }
+    50% { 
+        box-shadow: inset 0 0 50px rgba(255, 100, 0, 0.3);
+    }
+}

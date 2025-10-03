@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Remoto - Nod Krai</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎮 Control Remoto Nod Krai</h1>
+            <div class="state-indicator" id="state-indicator">
+                ⌛ Conectando...
+            </div>
+        </div>
+
+        <!-- P5.js Canvas Container -->
+        <div id="p5-container"></div>
+
+        <!-- Debug Panel -->
+        <div class="debug-panel">
+            <h3>🔧 Debug Info</h3>
+            <div class="debug-info" id="debug-info">
+                Inicializando...
+            </div>
+        </div>
+
+        <!-- Main Area -->
+        <div class="main-area">
+            <!-- Audio Controls -->
+            <div class="audio-panel">
+                <h2>🎵 Control de Audio</h2>
+                <div class="audio-controls">
+                    <!-- Selector de archivos locales -->
+                    <div class="audio-selector-group">
+                        <label>📁 Seleccionar archivo local:</label>
+                        <select id="audio-file-select" class="audio-select">
+                            <option value="">Cargando archivos...</option>
+                        </select>
+                        <button class="load-files-btn" id="refresh-files-btn">🔄 Actualizar lista</button>
+                    </div>
+
+                    <div class="divider">O</div>
+
+                    <!-- Input manual de URL -->
+                    <div class="audio-input-group">
+                        <label>🌐 URL de audio externa:</label>
+                        <input type="text" id="audio-url-input" placeholder="https://ejemplo.com/musica.mp3">
+                        <small>Ejemplos: SoundCloud, archivo directo, etc.</small>
+                    </div>
+                    
+                    <div class="audio-buttons">
+                        <button class="audio-btn play-btn" id="audio-play-btn">
+                            ▶️ Reproducir
+                        </button>
+                        <button class="audio-btn pause-btn" id="audio-pause-btn">
+                            ⏸️ Pausar
+                        </button>
+                        <button class="audio-btn stop-btn" id="audio-stop-btn">
+                            ⏹️ Detener
+                        </button>
+                    </div>
+                    
+                    <div class="slider-control">
+                        <label>🔊 Volumen: <span id="audio-volume-value">50%</span></label>
+                        <input type="range" id="audio-volume-slider" min="0" max="1" value="0.5" step="0.05">
+                    </div>
+                    
+                    <div class="current-track" id="current-track">
+                        <span class="track-label">Reproduciendo:</span>
+                        <span class="track-name" id="track-name">Ninguno</span>
+                    </div>
+                    
+                    <div class="audio-info">
+                        <p>💡 <strong>Reactividad de Audio:</strong> Las ondas detrás de la luna vibrarán con la música</p>
+                        <p>🎸 <strong>Bass:</strong> Afecta las ondas | <strong>Mid/Treble:</strong> Partículas ambientales</p>
+                        <p>📂 <strong>Ubicación:</strong> Coloca archivos MP3/WAV/OGG en <code>public/audio/</code></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transition Panel -->
+            <div class="transition-panel">
+                <h2>⚡ Cambiar Estado del Sistema</h2>
+                <div class="transition-buttons">
+                    <button class="transition-btn state-1-btn active" id="btn-state-1">
+                        <div class="btn-icon">🌙</div>
+                        <div class="btn-text">
+                            <strong>Estado 1</strong><br>
+                            <small>Luna Pacífica</small>
+                        </div>
+                    </button>
+                    <button class="transition-btn state-2-btn" id="btn-state-2">
+                        <div class="btn-icon">🌋</div>
+                        <div class="btn-text">
+                            <strong>Estado 2</strong><br>
+                            <small>Luna Volcánica</small>
+                        </div>
+                    </button>
+                </div>
+                <div class="transition-progress" id="transition-progress">
+                    <div class="transition-progress-bar" id="transition-progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Estado 1 Controls -->
+            <div class="controls-section state-1 active" id="state-1-controls">
+                <h3>💫 Estado 1: Luna Pacífica</h3>
+                
+                <div class="pulse-control">
+                    <div class="pulse-button" id="pulse-button">
+                        <div class="pulse-icon">🌙</div>
+                        <div class="pulse-text">PULSAR</div>
+                    </div>
+                </div>
+
+                <div class="slider-control">
+                    <label>Intensidad del Pulso: <span id="intensity-value-1">1.0</span>x</label>
+                    <input type="range" id="intensity-slider-1" min="0.3" max="3" value="1" step="0.1">
+                </div>
+            </div>
+
+            <!-- Estado 2 Controls -->
+            <div class="controls-section state-2" id="state-2-controls">
+                <h3>🔥 Estado 2: Luna Volcánica</h3>
+                
+                <div class="phase-section">
+                    <h4>🌈 Fase Cromática Actual: <span id="current-phase">Violeta</span></h4>
+                    <div class="phase-buttons">
+                        <button class="phase-btn violet active" data-phase="violet">
+                            <div class="phase-icon">💜</div>
+                            <div>Violeta</div>
+                        </button>
+                        <button class="phase-btn red" data-phase="red">
+                            <div class="phase-icon">❤️</div>
+                            <div>Rojo</div>
+                        </button>
+                        <button class="phase-btn gold" data-phase="gold">
+                            <div class="phase-icon">💛</div>
+                            <div>Dorado</div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="meteor-section">
+                    <button class="meteor-btn" id="meteor-button">
+                        🌠 Lanzar Meteoros
+                    </button>
+                </div>
+
+                <div class="slider-control">
+                    <label style="color: #ff6b6b;">Intensidad de Meteoros: <span id="intensity-value-2">1.0</span>x</label>
+                    <input type="range" id="intensity-slider-2" min="0.5" max="2.5" value="1" step="0.1">
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer with Stats -->
+        <div class="footer">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🔌</div>
+                    <div class="stat-content">
+                        <div class="stat-label">Conexión</div>
+                        <div class="stat-value" id="connection-status">Conectando...</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-label">Acciones</div>
+                        <div class="stat-value" id="actions-count">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>
